@@ -1,0 +1,62 @@
+<!-- Centro -->
+<div class="col-md-6">
+
+	<div class="panel panel-default">
+		<div class="panel-heading">Desabafe</div>
+		<div class="panel-body">
+		
+			<div class="col-md-12">
+				<div class="input-group">
+				  <span class="input-group-addon" id="sizing-addon2">#</span>
+				  <input type="text" class="form-control" placeholder="Assunto" aria-describedby="sizing-addon2" ng-model="publicacao.assunto" />
+				</div>
+			</div>
+	
+			<div class="col-md-12" style="margin-top: 10px">
+				<textarea rows="3" type="text" class="form-control" placeholder="Escreva seu desabafo aqui..." ng-model="publicacao.texto" >
+				</textarea>
+			</div>
+		
+			<div class="col-md-12" style="margin-top: 10px">
+				<button class="btn btn-primary pull-right" type="button" ng-click="publicar()">Desabafe!</button>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Publicações -->
+	<div class="panel panel-default" ng-repeat="publicacao in publicacoes">
+
+	  <div class="panel-heading"> 
+	  
+	  	  <a href="#/"> {{ publicacao.dataCriacao | date }} </a>  - Sobre <a href="#/"> #{{ publicacao.assunto }} </a>
+			
+		  <a href="#/"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a>
+		  
+	  </div>
+	  
+	  <div class="panel-body">
+	    <p> {{ publicacao.texto }} </p>
+	  </div>
+	  
+	  <div class="panel-body" ng-controller="comentarioCtrl">
+
+		<div class="col-md-9">
+			<textarea rows="1" type="text" class="form-control" placeholder="Comente sobre esse desabafo..." ng-model="comentario.texto" >
+			</textarea>
+		</div>
+
+		<div class="col-md-3">
+			<button class="btn btn-primary pull-right" type="button" ng-click="comentar(publicacao)">Comentar!</button>
+		</div>
+
+	  </div>
+	  
+	  <!-- List group -->
+	  <ul class="list-group">
+	    <li class="list-group-item"  ng-repeat="comentario in publicacao.comentarios">
+			{{comentario.dataCriacao | date}} - {{comentario.texto}}
+		</li>
+	  </ul>
+	</div>
+
+</div>

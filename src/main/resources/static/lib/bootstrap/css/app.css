@@ -1,0 +1,6 @@
+ .navbar-brand-centered {
+     position: absolute;
+     left: 45%;
+     display: block;
+     text-align: center;
+ }
