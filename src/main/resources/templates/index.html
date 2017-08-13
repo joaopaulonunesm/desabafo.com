@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="desabafoApp">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Desabafo.com</title>
 <link rel="stylesheet" href="lib/bootstrap/bootstrap/bootstrap.css" />
 <link rel="stylesheet" href="lib/bootstrap/css/app.css" />
@@ -15,10 +15,14 @@
 
 <script src="js/controllers/publicacaoCtrl.js"></script>
 <script src="js/controllers/comentarioCtrl.js"></script>
+<script src="js/controllers/umaPublicacaoCtrl.js"></script>
+<script src="js/controllers/umAssuntoCtrl.js"></script>
 
-</meta>
+<script src="js/filters/sobreFilter.js"></script>
+<script src="js/filters/topDesabafoFilter.js"></script>
+
 </head>
-<body>
+<body ng-controller="publicacaoCtrl">
 
 	<!-- Navbar -->
 	<nav class="navbar navbar-default">

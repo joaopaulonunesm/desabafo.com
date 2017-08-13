@@ -22,4 +22,21 @@ angular.module("desabafoApp").controller("comentarioCtrl", function($scope, $htt
 		});
 	};
 	
+	$scope.curtirComentario = function(comentario) {	
+		
+		$http({
+			method : 'PUT',
+			url : config.baseUrl + '/publicacoes/comentario/' + comentario.id + '/curtir',
+		}).then(function(response) {
+			
+			console.log(response);
+			
+		}, function(response) {
+			
+			console.log(response.data);
+			console.log(response.status);
+			
+		});
+	};
+	
 });

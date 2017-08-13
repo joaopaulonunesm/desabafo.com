@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ public class Publicacao {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "PUB_SEQ")
 	private Long id;
 
+	@Column(nullable = false)
 	private String texto;
 
 	private int qntCurtidas;

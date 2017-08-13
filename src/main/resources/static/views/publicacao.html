@@ -1,0 +1,41 @@
+<!-- Centro -->
+<meta charset="UTF-8" />
+<div class="col-md-6">
+	
+	<!-- Publicações -->
+	<div class="panel panel-default">
+
+	  <div class="panel-heading"> 
+	  
+	  	  {{ publicacao.dataCriacao | date }}  <a ng-href="#/assunto/{{ publicacao.assunto }}"> {{ publicacao.assunto | sobre }} </a>
+			
+		  <a href="#/" ng-click="curtirPublicacao(publicacao)"><span class="glyphicon glyphicon-star" aria-hidden="true" style="margin-left: 50px"></span> {{publicacao.qntCurtidas}}</a> 
+		  
+	  </div>
+	  
+	  <div class="panel-body">
+	    <p> {{ publicacao.texto }} </p>
+	  </div>
+	  
+	  <form class="panel-body" ng-controller="comentarioCtrl" name="comentarForm">
+
+		<div class="col-md-9">
+			<textarea rows="1" type="text" class="form-control" placeholder="Comente sobre esse desabafo..." required ng-model="comentario.texto" >
+			</textarea>
+		</div>
+
+		<div class="col-md-3">
+			<button class="btn btn-primary pull-right" type="button" ng-disabled="comentarForm.$invalid" ng-click="comentar(publicacao)">Comentar!</button>
+		</div>
+
+	  </form>
+	  
+	  <!-- List group -->
+	  <ul class="list-group">
+	    <li class="list-group-item"  ng-repeat="comentario in publicacao.comentarios">
+			{{comentario.dataCriacao | date}} - {{comentario.texto}}
+		</li>
+	  </ul>
+	</div>
+
+</div>

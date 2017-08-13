@@ -25,11 +25,11 @@
 	</div>
 	
 	<!-- Publicações -->
-	<div class="panel panel-default" ng-repeat="publicacao in publicacoes">
+	<div class="panel panel-default" ng-repeat="publicacao in publicacoesPorAssunto">
 
 	  <div class="panel-heading"> 
 	  
-	  	  <a ng-href="#/publicacao/{{ publicacao.id }}"> {{ publicacao.dataCriacao | date }} </a>  <a ng-href="#/assunto/{{ publicacao.assunto }}"> {{ publicacao.assunto | sobre }} </a>
+	  	  <a href="#/"> {{ publicacao.dataCriacao | date }} </a>  <a href="#/"> {{ publicacao.assunto | sobre }} </a>
 			
 		  <a href="#/" ng-click="curtirPublicacao(publicacao)"><span class="glyphicon glyphicon-star" aria-hidden="true" style="margin-left: 50px"></span> {{publicacao.qntCurtidas}}</a> 
 		  

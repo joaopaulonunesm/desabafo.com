@@ -1,10 +1,19 @@
 <!-- Coluna Direita -->
+<meta charset="UTF-8" />
 <div class="col-md-3">
 
 	<!-- Top Desabafos -->
 	<div class="panel panel-default">
 		<div class="panel-heading"><a href="#/"> Top Desabafos </a></div>
-		<div class="panel-body">Teste</div>
+	    <ul class="list-group">
+		    <li class="list-group-item" ng-repeat="publicacao in publicacoesPorCurtidas | limitTo: 5">
+				<a href="#/" ng-click="curtirPublicacao(publicacao)"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{publicacao.qntCurtidas}}</a> 
+				{{ publicacao.texto | reticencia: 14 }}
+				<a ng-href="#/publicacao/{{ publicacao.id }}">
+					<button type="button" class="btn btn-primary pull-right btn-xs"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
+				</a>
+			</li>
+	  	</ul>
 	</div>
 
 </div>

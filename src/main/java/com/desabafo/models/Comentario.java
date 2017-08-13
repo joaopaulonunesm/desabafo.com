@@ -2,6 +2,7 @@ package com.desabafo.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +31,7 @@ public class Comentario {
 		this.id = id;
 	}
 
+	@Column(nullable = false)
 	public String getTexto() {
 		return texto;
 	}

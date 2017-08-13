@@ -1,6 +1,7 @@
 package com.desabafo.services;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,24 @@ public class PublicacaoService {
 		return publicacaoRepository.findOne(id);
 	}
 
-	public List<Publicacao> findAll() {
-		return publicacaoRepository.findAll();
+	public List<Publicacao> findByOrderByDataCriacaoDesc() {
+		return publicacaoRepository.findByOrderByDataCriacaoDesc();
+	}
+
+	public List<Publicacao> findByOrderByQntCurtidas() {
+		return publicacaoRepository.findByOrderByQntCurtidasDesc();
+	}
+
+	public List<Publicacao> findByAssuntoOrderByQntCurtidas(String assunto) {
+		return publicacaoRepository.findByAssuntoOrderByQntCurtidasDesc(assunto);
+	}
+	
+	public List<Publicacao> findByAssuntoMaisFalado() {
+		return publicacaoRepository.findByAssuntoMaisFalado();
+	}
+
+	public Set<Publicacao> findByAssuntoMaisRecente() {
+		return publicacaoRepository.findByAssuntoMaisRecente();
 	}
 
 }

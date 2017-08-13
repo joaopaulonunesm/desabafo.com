@@ -24,17 +24,26 @@ public class ComentarioController {
 	private ComentarioService comentarioService;
 
 	@Autowired
-	PublicacaoService publicacaoService;
+	private PublicacaoService publicacaoService;
 
 	// Deletar Comentario
-	@RequestMapping(value = "/publicacoes/comentario/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Publicacao> deletePublicacao(@PathVariable Long id) {
+	@RequestMapping(value = "/publicacoes/{idPublicacao}/comentario/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Publicacao> deletePublicacao(@PathVariable Long idPublicacao, @PathVariable Long id) {
+
+		Publicacao publicacao = publicacaoService.findOne(idPublicacao);
+
+		if (publicacao == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 		Comentario comentario = comentarioService.findOne(id);
 
 		if (comentario == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+
+		publicacao.getComentarios().remove(comentario);
+		publicacaoService.save(publicacao);
 
 		comentarioService.delete(comentario);
 
@@ -44,6 +53,10 @@ public class ComentarioController {
 	// Criar novo Comentario
 	@RequestMapping(value = "/publicacoes/comentar/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Comentario> postPublicacao(@RequestBody Comentario comentario, @PathVariable Long id) {
+
+		if (comentario.getTexto().isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 
 		Publicacao publicacao = publicacaoService.findOne(id);
 
@@ -58,7 +71,7 @@ public class ComentarioController {
 	}
 
 	// Curtir um Comentario
-	@RequestMapping(value = "/publicacoes/comentario/curtir/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/publicacoes/comentario/{id}/curtir", method = RequestMethod.PUT)
 	public ResponseEntity<Comentario> postCurtirPublicacao(@PathVariable Long id) {
 
 		Comentario comentario = comentarioService.findOne(id);

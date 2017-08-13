@@ -1,7 +1,9 @@
 package com.desabafo.controllers;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,14 +15,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.desabafo.models.Comentario;
 import com.desabafo.models.Publicacao;
+import com.desabafo.services.ComentarioService;
 import com.desabafo.services.PublicacaoService;
 
 @Controller
 public class PublicacaoController {
 
+	private static final int QUANTIDADE_DE_CURTIDAS_MINIMA_PARA_O_TOP = 5;
+
 	@Autowired
 	private PublicacaoService publicacaoService;
+
+	@Autowired
+	private ComentarioService comentarioController;
 
 	// Deletar Publicação
 	@RequestMapping(value = "/publicacoes/{id}", method = RequestMethod.DELETE)
@@ -32,42 +41,81 @@ public class PublicacaoController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
+		List<Comentario> comentarios = publicacao.getComentarios();
+
+		comentarios.removeAll(comentarios);
+
+		for (Comentario comentario : comentarios) {
+			comentarioController.delete(comentario);
+		}
+
 		publicacaoService.delete(publicacao);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	// Get Publicação por id
+	@RequestMapping(value = "/publicacoes/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Publicacao> findPublicacaoById(@PathVariable Long id) {
+
+		return new ResponseEntity<>(publicacaoService.findOne(id), HttpStatus.OK);
+	}
+	
 	// Get Publicações
 	@RequestMapping(value = "/publicacoes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Publicacao>> findAllPublicacoes() {
 
-		return new ResponseEntity<>(publicacaoService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(publicacaoService.findByOrderByDataCriacaoDesc(), HttpStatus.OK);
 	}
 
 	// Get Publicações por Curtidas
 	@RequestMapping(value = "/publicacoes/curtidas", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Publicacao>> findAllPublicacoesPorCurtidas() {
+		
+		List<Publicacao> publicacoes = publicacaoService.findByOrderByQntCurtidas();
+		
+		List<Publicacao> topPublicacoes = new ArrayList<>();
+		
+		for (Publicacao publicacao : publicacoes) {
+			if(publicacao.getQntCurtidas() >= QUANTIDADE_DE_CURTIDAS_MINIMA_PARA_O_TOP){
+				topPublicacoes.add(publicacao);
+			}
+		}
+		
+		System.out.println(publicacoes.toString());
+		System.out.println(topPublicacoes.toString());
 
-		return new ResponseEntity<>(publicacaoService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(topPublicacoes, HttpStatus.OK);
 	}
 
 	// Get Publicações por Assunto
-	@RequestMapping(value = "/publicacoes/assunto", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Publicacao>> findAllPublicacoesPorAssunto() {
+	@RequestMapping(value = "/publicacoes/assunto/{assunto}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Publicacao>> findAllPublicacoesPorAssunto(@PathVariable String assunto) {
 
-		return new ResponseEntity<>(publicacaoService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(publicacaoService.findByAssuntoOrderByQntCurtidas(assunto), HttpStatus.OK);
 	}
 
-	// Get Assuntos
+	// Get Assuntos que tem mais publicacao
 	@RequestMapping(value = "/assuntos", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Publicacao>> findAllAssuntos() {
+	public ResponseEntity<List<Publicacao>> findAssuntosComMaisPublicacoes() {
 
-		return new ResponseEntity<>(publicacaoService.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(publicacaoService.findByAssuntoMaisFalado(), HttpStatus.OK);
+	}
+
+	// Get Assuntos ordenado por criacao
+	@RequestMapping(value = "/assuntos/recentes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Set<Publicacao>> findAssuntosMaisRecentes() {
+
+		return new ResponseEntity<>(publicacaoService.findByAssuntoMaisRecente(), HttpStatus.OK);
 	}
 
 	// Criar nova Publicação
 	@RequestMapping(value = "/publicacoes", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Publicacao> postPublicacao(@RequestBody Publicacao publicacao) {
+
+		if (publicacao.getTexto().isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 
 		publicacao.setQntComentarios(0);
 		publicacao.setQntCurtidas(0);
@@ -77,7 +125,7 @@ public class PublicacaoController {
 	}
 
 	// Curtir uma Publicação
-	@RequestMapping(value = "/publicacoes/curtir/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/publicacoes/curtir/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Publicacao> postCurtirPublicacao(@PathVariable Long id) {
 
 		Publicacao publicacao = publicacaoService.findOne(id);

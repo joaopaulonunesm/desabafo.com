@@ -1,19 +1,30 @@
 <!-- Coluna Esquerda -->
+<meta charset="UTF-8" />
 <div class="col-md-3">
 
 	<div class="panel panel-default">
 		<div class="panel-heading"><a href="#/"> #TopAssuntos </a></div>
-		<div class="panel-body">Teste</div>
+		<ul class="list-group">
+		    <li class="list-group-item" ng-repeat="topAssunto in assuntosMaisFalados | limitTo: 5">
+				<a ng-href="#/assunto/{{ topAssunto[0] }}">
+					{{ topAssunto[1] }} 
+					<span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 
+					{{ topAssunto[0] }}
+				</a> 
+			</li>
+	  	</ul>
 	</div>
 
 	<!-- Assuntos do momento -->
 	<div class="panel panel-default">
-		<div class="panel-heading"><a href="#/"> Assuntos do Momento </a></div>
-		<div class="panel-body">
-
-			<p>Teste</p>
-
-		</div>
-	
+		<div class="panel-heading"><a href="#/"> Últimos assuntos </a></div>
+		<ul class="list-group">
+		    <li class="list-group-item" ng-repeat="ultimoAssunto in assuntosMaisRecentes | limitTo: 5">
+				<a ng-href="#/assunto/{{ ultimoAssunto }}">
+					<span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> 
+					{{ ultimoAssunto }}
+				</a> 
+			</li>
+	  	</ul>
 	</div>
 </div>
