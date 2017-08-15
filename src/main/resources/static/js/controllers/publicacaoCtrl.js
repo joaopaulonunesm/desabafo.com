@@ -14,6 +14,8 @@ angular.module("desabafoApp").controller("publicacaoCtrl", function($scope, $htt
 
 	$scope.publicacao = {};
 	
+	$scope.assuntoSelecionado = {};
+	
 	$scope.publicar = function() {
 		
 		$scope.publicacao.comentarios = [];
@@ -115,7 +117,13 @@ angular.module("desabafoApp").controller("publicacaoCtrl", function($scope, $htt
 			url : config.baseUrl + '/assuntos/recentes',
 		}).then(function(response) {
 			
-			$scope.assuntosMaisRecentes = response.data;
+			angular.forEach(response.data, function(element) {
+				
+				var nome = {"nome": element};
+				
+				$scope.assuntosMaisRecentes.push(nome);
+				
+			});
 			
 		}, function(response) {
 			console.log(response.data);

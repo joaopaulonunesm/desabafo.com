@@ -3,7 +3,7 @@
 <div class="col-md-3">
 
 	<div class="panel panel-default">
-		<div class="panel-heading"><a href="#/"> #TopAssuntos </a></div>
+		<div class="panel-heading"><a href="#/" style="color: #fff"> #TopAssuntos </a></div>
 		<ul class="list-group">
 		    <li class="list-group-item" ng-repeat="topAssunto in assuntosMaisFalados | limitTo: 5">
 				<a ng-href="#/assunto/{{ topAssunto[0] }}">
@@ -17,12 +17,12 @@
 
 	<!-- Assuntos do momento -->
 	<div class="panel panel-default">
-		<div class="panel-heading"><a href="#/"> Últimos assuntos </a></div>
+		<div class="panel-heading"><a href="#/" style="color: #fff"> Últimos assuntos </a></div>
 		<ul class="list-group">
 		    <li class="list-group-item" ng-repeat="ultimoAssunto in assuntosMaisRecentes | limitTo: 5">
-				<a ng-href="#/assunto/{{ ultimoAssunto }}">
+				<a ng-href="#/assunto/{{ ultimoAssunto.nome }}">
 					<span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> 
-					{{ ultimoAssunto }}
+					{{ ultimoAssunto.nome }}
 				</a> 
 			</li>
 	  	</ul>

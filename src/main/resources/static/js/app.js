@@ -1,1 +1,1 @@
-angular.module("desabafoApp", ["ngRoute"]);
+angular.module("desabafoApp", ["ngRoute", "angucomplete"]);

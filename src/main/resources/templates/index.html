@@ -4,11 +4,15 @@
 <meta charset="UTF-8" />
 <title>Desabafo.com</title>
 <link rel="stylesheet" href="lib/bootstrap/bootstrap/bootstrap.css" />
-<link rel="stylesheet" href="lib/bootstrap/css/app.css" />
+<link rel="stylesheet" href="css/styleapp.css" />
+<link rel="stylesheet" href="css/angucomplete.css" />
 
 <script src="lib/angular/angular.js"></script>
 <script src="lib/angular/angular-route.js"></script>
+<script src="lib/angular/angucomplete.js"></script>
+
 <script src="js/app.js"></script>
+
 
 <script src="js/configs/urlConfig.js"></script>
 <script src="js/configs/routeConfig.js"></script>
@@ -24,14 +28,7 @@
 </head>
 <body ng-controller="publicacaoCtrl">
 
-	<!-- Navbar -->
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand navbar-brand-centered" href="#/">desabafo.com</a>
-			</div>
-		</div>
-	</nav>
+	<div ng-include="'views/navbar.html'"></div>
 
 	<div ng-include="'views/menuEsquerda.html'"></div>
 

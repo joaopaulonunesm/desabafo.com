@@ -82,9 +82,6 @@ public class PublicacaoController {
 			}
 		}
 		
-		System.out.println(publicacoes.toString());
-		System.out.println(topPublicacoes.toString());
-
 		return new ResponseEntity<>(topPublicacoes, HttpStatus.OK);
 	}
 

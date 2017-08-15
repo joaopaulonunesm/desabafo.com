@@ -19,7 +19,7 @@
 			</div>
 		
 			<div class="col-md-12" style="margin-top: 10px">
-				<button class="btn btn-primary pull-right" type="button" ng-disabled="publicarForm.$invalid" ng-click="publicar()">Desabafe!</button>
+				<button class="btn btn-des pull-right" type="button" ng-disabled="publicarForm.$invalid" ng-click="publicar()">Desabafe!</button>
 			</div>
 		</form>
 	</div>
@@ -29,9 +29,9 @@
 
 	  <div class="panel-heading"> 
 	  
-	  	  <a href="#/"> {{ publicacao.dataCriacao | date }} </a>  <a href="#/"> {{ publicacao.assunto | sobre }} </a>
+	  	  <a href="#/" style="color: #fff"> {{ publicacao.dataCriacao | date }} </a>  <a href="#/" style="color: #fff"> {{ publicacao.assunto | sobre }} </a>
 			
-		  <a href="#/" ng-click="curtirPublicacao(publicacao)"><span class="glyphicon glyphicon-star" aria-hidden="true" style="margin-left: 50px"></span> {{publicacao.qntCurtidas}}</a> 
+		  <a href="#/" ng-click="curtirPublicacao(publicacao)" style="color: #fff"><span class="glyphicon glyphicon-star" aria-hidden="true" style="margin-left: 50px"></span> {{publicacao.qntCurtidas}}</a> 
 		  
 	  </div>
 	  
@@ -47,7 +47,7 @@
 		</div>
 
 		<div class="col-md-3">
-			<button class="btn btn-primary pull-right" type="button" ng-disabled="comentarForm.$invalid" ng-click="comentar(publicacao)">Comentar!</button>
+			<button class="btn btn-des pull-right" type="button" ng-disabled="comentarForm.$invalid" ng-click="comentar(publicacao)">Comentar!</button>
 		</div>
 
 	  </form>
