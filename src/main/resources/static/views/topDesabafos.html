@@ -3,10 +3,11 @@
 <ul class="collection with-header">
 
 <li class="collection-header">
-	<h5> <a href="#/top/desabafos" style="color: #fff"> Top Desabafos </a> </h5>
+	<h5> Top Desabafos </h5>
+	<p> Os Desabafos com mais estrelas da nossa rede! </p>
 </li>
 
-  <li class="collection-item" ng-controller="comentarioCtrl" ng-repeat="publicacao in publicacoesPorCurtidas | limitTo: 5">
+  <li class="collection-item" ng-controller="comentarioCtrl" ng-repeat="publicacao in publicacoesPorCurtidas">
   
   	<a href="#!" class="secondary-content" ng-click="curtirPublicacao(publicacao)"> {{ publicacao.qntCurtidas }} <i class="material-icons">grade</i></a>
     <span class="title">
@@ -18,6 +19,19 @@
        {{ publicacao.texto }}
     </p>
    
+    <br>
+    
+     <form class="input-field col s12" name="comentarForm">
+	    <textarea id="textarea1" class="materialize-textarea" required ng-model="comentario.texto"></textarea>
+	    <label for="textarea1">Escreva seu comentário...</label>
+    </form>
+    
+   	<div class="card-action right-align">
+		<button class="btn waves-effect waves-light" type="submit" name="action" ng-disabled="comentarForm.$invalid" ng-click="comentar(publicacao)">Comentar!
+			<i class="material-icons right">mode_comment</i>
+	 	</button>
+   	</div>
+    
     <br>
     
     <ul class="collection" ng-if="publicacao.comentarios.length > 0">
