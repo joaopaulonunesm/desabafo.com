@@ -3,7 +3,7 @@ angular.module("desabafoApp").filter("sobre", function (){
 
         if(input == null){ return null; }
 
-        var output = '- Sobre #' + input;
+        var output = 'Sobre #' + input;
 
         return output;
     }

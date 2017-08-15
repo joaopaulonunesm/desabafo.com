@@ -58,38 +58,58 @@ public class PublicacaoController {
 	@RequestMapping(value = "/publicacoes/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Publicacao> findPublicacaoById(@PathVariable Long id) {
 
-		return new ResponseEntity<>(publicacaoService.findOne(id), HttpStatus.OK);
+		Publicacao publicacao = publicacaoService.findOne(id);
+
+		publicacaoService.ordenarComentariosPorQntCurtidas(publicacao.getComentarios());
+
+		return new ResponseEntity<>(publicacao, HttpStatus.OK);
 	}
-	
+
 	// Get Publicações
 	@RequestMapping(value = "/publicacoes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Publicacao>> findAllPublicacoes() {
 
-		return new ResponseEntity<>(publicacaoService.findByOrderByDataCriacaoDesc(), HttpStatus.OK);
+		List<Publicacao> publicacoes = publicacaoService.findByOrderByDataCriacaoDesc();
+
+		for (Publicacao publicacao : publicacoes) {
+			publicacaoService.ordenarComentariosPorQntCurtidas(publicacao.getComentarios());
+		}
+
+		return new ResponseEntity<>(publicacoes, HttpStatus.OK);
 	}
 
 	// Get Publicações por Curtidas
 	@RequestMapping(value = "/publicacoes/curtidas", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Publicacao>> findAllPublicacoesPorCurtidas() {
-		
+
 		List<Publicacao> publicacoes = publicacaoService.findByOrderByQntCurtidas();
-		
-		List<Publicacao> topPublicacoes = new ArrayList<>();
-		
+
 		for (Publicacao publicacao : publicacoes) {
-			if(publicacao.getQntCurtidas() >= QUANTIDADE_DE_CURTIDAS_MINIMA_PARA_O_TOP){
+			publicacaoService.ordenarComentariosPorQntCurtidas(publicacao.getComentarios());
+		}
+
+		List<Publicacao> topPublicacoes = new ArrayList<>();
+
+		for (Publicacao publicacao : publicacoes) {
+			if (publicacao.getQntCurtidas() >= QUANTIDADE_DE_CURTIDAS_MINIMA_PARA_O_TOP) {
 				topPublicacoes.add(publicacao);
 			}
 		}
-		
+
 		return new ResponseEntity<>(topPublicacoes, HttpStatus.OK);
 	}
 
 	// Get Publicações por Assunto
 	@RequestMapping(value = "/publicacoes/assunto/{assunto}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Publicacao>> findAllPublicacoesPorAssunto(@PathVariable String assunto) {
+		
+		List<Publicacao> publicacoes = publicacaoService.findByAssuntoOrderByQntCurtidas(assunto);
 
-		return new ResponseEntity<>(publicacaoService.findByAssuntoOrderByQntCurtidas(assunto), HttpStatus.OK);
+		for (Publicacao publicacao : publicacoes) {
+			publicacaoService.ordenarComentariosPorQntCurtidas(publicacao.getComentarios());
+		}
+
+		return new ResponseEntity<>(publicacoes, HttpStatus.OK);
 	}
 
 	// Get Assuntos que tem mais publicacao
@@ -102,7 +122,7 @@ public class PublicacaoController {
 	// Get Assuntos ordenado por criacao
 	@RequestMapping(value = "/assuntos/recentes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Set<Publicacao>> findAssuntosMaisRecentes() {
-
+		
 		return new ResponseEntity<>(publicacaoService.findByAssuntoMaisRecente(), HttpStatus.OK);
 	}
 

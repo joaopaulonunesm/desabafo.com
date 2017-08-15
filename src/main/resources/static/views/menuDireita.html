@@ -1,19 +1,43 @@
-<!-- Coluna Direita -->
+<!-- Top Desabafos -->
 <meta charset="UTF-8" />
-<div class="col-md-3">
+<ul class="collection with-header">
 
-	<!-- Top Desabafos -->
-	<div class="panel panel-default">
-		<div class="panel-heading"><a href="#/" style="color: #fff"> Top Desabafos </a></div>
-	    <ul class="list-group">
-		    <li class="list-group-item" ng-repeat="publicacao in publicacoesPorCurtidas | limitTo: 5">
-				<a href="#/" ng-click="curtirPublicacao(publicacao)"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{publicacao.qntCurtidas}}</a> 
-				{{ publicacao.texto | reticencia: 14 }}
-				<a ng-href="#/publicacao/{{ publicacao.id }}" >
-					<button type="button" class="btn btn-des pull-right btn-xs"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
-				</a>
-			</li>
-	  	</ul>
-	</div>
+	<li class="collection-header">
+		<h5> Top Desabafos </h5>
+	</li>
+	
+	<ul class="collection" ng-repeat="publicacao in publicacoesPorCurtidas | limitTo: 5" ng-controller="comentarioCtrl">
+	  <li class="collection-item">
+	  
+	  	<a href="#!" class="secondary-content" ng-click="curtirPublicacao(publicacao)"> {{ publicacao.qntCurtidas }} <i class="material-icons">grade</i></a>
+	    <span class="title">
+	    	<a ng-href="#/assunto/{{ publicacao.assunto }}"> <h5>{{ publicacao.assunto | sobre }}</h5> </a>
+	    </span>
+	    <a ng-href="#/publicacao/{{ publicacao.id }}"> <h6>{{ publicacao.dataCriacao | date }}</h6> </a> 
+	   	<br>
+	   	<p>
+	       {{ publicacao.texto }}
+	    </p>
+	   
+	    <br>
+	    
+	    <ul class="collection" ng-if="publicacao.comentarios.length > 0">
+		    <li class="collection-item" ng-repeat="comentario in publicacao.comentarios | limitTo: 3">
+			  	<a href="#!" ng-click="curtirComentario(comentario)" class="secondary-content"> {{ comentario.qntCurtidas }} <i class="material-icons">grade</i></a>
+			    <a ng-href="#/publicacao/{{ publicacao.id }}"> {{comentario.dataCriacao | date}} </a> 
+			   	<br>
+			   	<p>
+		     		{{comentario.texto}}
+			    </p>
+		 	</li>
+		 	<li class="collection-item" ng-if="publicacao.comentarios.length > 3" style="text-align: center">
+		 		<a ng-href="#/publicacao/{{publicacao.id}}">Ver mais</a>
+		 	</li>
+	    </ul>
+	    
+	  </li>
+	</ul>
 
-</div>
+</ul>
+ 
+ 

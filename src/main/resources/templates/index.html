@@ -3,16 +3,18 @@
 <head>
 <meta charset="UTF-8" />
 <title>Desabafo.com</title>
-<link rel="stylesheet" href="lib/bootstrap/bootstrap/bootstrap.css" />
-<link rel="stylesheet" href="css/styleapp.css" />
-<link rel="stylesheet" href="css/angucomplete.css" />
 
-<script src="lib/angular/angular.js"></script>
-<script src="lib/angular/angular-route.js"></script>
-<script src="lib/angular/angucomplete.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<link rel="stylesheet" href="lib/css/materialize.css" />
+
+<script src="lib/js/angular.js"></script>
+<script src="lib/js/angular-route.js"></script>
+<script src="lib/js/angucomplete.js"></script>
+
+<link rel="stylesheet" href="lib/css/angucomplete.css" />
+<link rel="stylesheet" href="lib/css/styleapp.css" />
 
 <script src="js/app.js"></script>
-
 
 <script src="js/configs/urlConfig.js"></script>
 <script src="js/configs/routeConfig.js"></script>
@@ -28,16 +30,24 @@
 </head>
 <body ng-controller="publicacaoCtrl">
 
-	<div ng-include="'views/navbar.html'"></div>
+<div ng-include="'views/navbar.html'"></div>
 
-	<div ng-include="'views/menuEsquerda.html'"></div>
+<div class="row">
+  <div class="col s3">
+  	<div ng-include="'views/menuEsquerda.html'"></div>
+  </div>
+  <div class="col s6">
+  	<ng-view></ng-view>
+	  </div>
+  <div class="col s3">
+  	<div ng-include="'views/menuDireita.html'"></div>
+  </div>
+</div>
+ 
+<div ng-include="'views/footer.html'"></div>
 
- 	<ng-view></ng-view>
- 	
-	<div ng-include="'views/menuDireita.html'"></div>
-
-	<script src="lib/bootstrap/bootstrap/jquery.min.js"></script>
-	<script src="lib/bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/js/jquery-3.2.1.min.js"></script>
+<script src="lib/js/materialize.min.js"></script>
 
 </body>
 </html>

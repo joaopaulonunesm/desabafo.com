@@ -1,66 +1,51 @@
 <!-- Centro -->
 <meta charset="UTF-8" />
-<div class="col-md-6">
 
-	<div class="panel panel-default">
-		<div class="panel-heading">Desabafe aqui!</div>
-		<form class="panel-body" name="publicarForm">
-		
-			<div class="col-md-12">
-				<div class="input-group">
-				  <span class="input-group-addon" id="sizing-addon2">#</span>
-				  <input type="text" class="form-control" placeholder="Assunto" aria-describedby="sizing-addon2" ng-model="publicacao.assunto" />
-				</div>
-			</div>
-	
-			<div class="col-md-12" style="margin-top: 10px">
-				<textarea rows="3" type="text" class="form-control" placeholder="Escreva seu desabafo aqui..." required ng-model="publicacao.texto" >
-				</textarea>
-			</div>
-			
-			<div class="col-md-12" style="margin-top: 10px">
-				<button class="btn btn-des pull-right" type="button" ng-disabled="publicarForm.$invalid" ng-click="publicar()">Desabafe!</button>
-			</div>
-		</form>
-	</div>
-	
-	<!-- Publicações -->
-	<div class="panel panel-default" ng-repeat="publicacao in publicacoes">
+<!-- Nova Publicação -->
+<div ng-include="'views/novaPublicacao.html'"></div>
 
-	  <div class="panel-heading"> 
-	  
-	  	  <a ng-href="#/publicacao/{{ publicacao.id }}" style="color: #fff"> {{ publicacao.dataCriacao | date }} </a>  <a ng-href="#/assunto/{{ publicacao.assunto }}" style="color: #fff"> {{ publicacao.assunto | sobre }} </a>
-			
-		  <a href="#/" ng-click="curtirPublicacao(publicacao)" style="color: #fff"><span class="glyphicon glyphicon-star" aria-hidden="true" style="margin-left: 50px"></span> {{publicacao.qntCurtidas}}</a> 
-		  
-	  </div>
-	  
-	  <div class="panel-body">
-	    <p> {{ publicacao.texto }} </p>
-	  </div>
-	  
-	  <form class="panel-body" ng-controller="comentarioCtrl" name="comentarForm">
-
-		<div class="col-md-9">
-			<textarea rows="1" type="text" class="form-control" placeholder="Comente sobre esse desabafo..." required ng-model="comentario.texto" >
-			</textarea>
-		</div>
-
-		<div class="col-md-3">
-			<button class="btn btn-des pull-right" type="button" ng-disabled="comentarForm.$invalid" ng-click="comentar(publicacao)">Comentar!</button>
-		</div>
-
-	  </form>
-	  
-	  <!-- List group -->
-	  <ul class="list-group">
-	    <li class="list-group-item"  ng-repeat="comentario in publicacao.comentarios | limitTo: 5">
-			{{comentario.dataCriacao | date}} - {{comentario.texto}}
-		</li>
-		<li class="list-group-item" ng-if="publicacao.comentarios.length > 5" style="text-align: center">
-        	<a ng-href="#/publicacao/{{publicacao.id}}" class="card-link">Ver mais</a>
-     	</li>
-	  </ul>
-	</div>
-
-</div>
+<!-- Publicações -->
+<ul class="collection" ng-repeat="publicacao in publicacoes" ng-controller="comentarioCtrl">
+  <li class="collection-item">
+  
+  	<a href="#!" class="secondary-content" ng-click="curtirPublicacao(publicacao)"> {{ publicacao.qntCurtidas }} <i class="material-icons">grade</i></a>
+    <span class="title">
+    	<a ng-href="#/assunto/{{ publicacao.assunto }}"> <h5>{{ publicacao.assunto | sobre }}</h5> </a>
+    </span>
+    <a ng-href="#/publicacao/{{ publicacao.id }}"> {{ publicacao.dataCriacao | date }} </a> 
+   	<br>
+   	<p>
+       <h5>{{ publicacao.texto }}</h5>
+    </p>
+    
+    <br>
+    
+    <form class="input-field col s12" name="comentarForm">
+	    <textarea id="textarea1" class="materialize-textarea" required ng-model="comentario.texto"></textarea>
+	    <label for="textarea1">Escreva seu comentário...</label>
+    </form>
+    
+   	<div class="card-action right-align">
+		<button class="btn waves-effect waves-light" type="submit" name="action" ng-disabled="comentarForm.$invalid" ng-click="comentar(publicacao)">Comentar!
+			<i class="material-icons right">mode_comment</i>
+	 	</button>
+   	</div>
+   
+    <br>
+    
+    <ul class="collection" ng-if="publicacao.comentarios.length > 0">
+	    <li class="collection-item" ng-repeat="comentario in publicacao.comentarios | limitTo: 5">
+		  	<a href="#!" ng-click="curtirComentario(comentario)" class="secondary-content"> {{ comentario.qntCurtidas }} <i class="material-icons">grade</i></a>
+		    <a ng-href="#/publicacao/{{ publicacao.id }}"> {{comentario.dataCriacao | date}} </a> 
+		   	<br>
+		   	<p>
+	     		{{comentario.texto}}
+		    </p>
+	 	</li>
+	 	<li class="collection-item" ng-if="publicacao.comentarios.length > 5" style="text-align: center">
+	 		<a ng-href="#/publicacao/{{publicacao.id}}">Ver mais</a>
+	 	</li>
+    </ul>
+    
+  </li>
+</ul>

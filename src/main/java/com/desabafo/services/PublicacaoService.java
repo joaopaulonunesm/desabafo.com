@@ -1,11 +1,13 @@
 package com.desabafo.services;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.desabafo.models.Comentario;
 import com.desabafo.models.Publicacao;
 import com.desabafo.repositories.PublicacaoRepository;
 
@@ -45,6 +47,28 @@ public class PublicacaoService {
 
 	public Set<Publicacao> findByAssuntoMaisRecente() {
 		return publicacaoRepository.findByAssuntoMaisRecente();
+	}
+	
+	public void ordenarComentariosPorQntCurtidas(List<Comentario> comentarios) {
+
+		Comparator<Comentario> comparator = new Comparator<Comentario>() {
+
+			@Override
+			public int compare(Comentario comentario1, Comentario comentario2) {
+
+				if (comentario1.getQntCurtidas() > comentario2.getQntCurtidas()) {
+					return -1;
+				}
+
+				if (comentario1.getQntCurtidas() < comentario2.getQntCurtidas()) {
+					return 1;
+				}
+
+				return 0;
+			}
+		};
+
+		comentarios.sort(comparator);
 	}
 
 }

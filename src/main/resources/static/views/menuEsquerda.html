@@ -1,30 +1,27 @@
-<!-- Coluna Esquerda -->
+<!-- TopAssuntos -->
 <meta charset="UTF-8" />
-<div class="col-md-3">
+<ul class="collection with-header">
 
-	<div class="panel panel-default">
-		<div class="panel-heading"><a href="#/" style="color: #fff"> #TopAssuntos </a></div>
-		<ul class="list-group">
-		    <li class="list-group-item" ng-repeat="topAssunto in assuntosMaisFalados | limitTo: 5">
-				<a ng-href="#/assunto/{{ topAssunto[0] }}">
-					{{ topAssunto[1] }} 
-					<span class="glyphicon glyphicon-comment" aria-hidden="true"></span> 
-					{{ topAssunto[0] }}
-				</a> 
-			</li>
-	  	</ul>
-	</div>
+	<li class="collection-header">
+		<h5> #TopAssuntos </h5>
+	</li>
 
-	<!-- Assuntos do momento -->
-	<div class="panel panel-default">
-		<div class="panel-heading"><a href="#/" style="color: #fff"> Últimos assuntos </a></div>
-		<ul class="list-group">
-		    <li class="list-group-item" ng-repeat="ultimoAssunto in assuntosMaisRecentes | limitTo: 5">
-				<a ng-href="#/assunto/{{ ultimoAssunto.nome }}">
-					<span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> 
-					{{ ultimoAssunto.nome }}
-				</a> 
-			</li>
-	  	</ul>
-	</div>
-</div>
+	<a ng-href="#/assunto/{{ topAssunto[0] }}" class="collection-item" ng-repeat="topAssunto in assuntosMaisFalados | limitTo: 5">
+		<span class="badge"> {{ topAssunto[1] }} </span>
+		{{ topAssunto[0] }}
+	</a>
+
+</ul>
+   
+<!-- Assuntos do momento -->
+<ul class="collection with-header">
+
+	<li class="collection-header">
+		<h5> Últimos assuntos </h5>
+	</li>
+	
+	<a ng-href="#/assunto/{{ ultimoAssunto.nome }}" class="collection-item" ng-repeat="ultimoAssunto in assuntosMaisRecentes | limitTo: 5">
+		{{ ultimoAssunto.nome }}
+	</a>
+
+</ul>

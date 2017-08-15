@@ -1,24 +1,33 @@
 <!-- Navbar -->
-<nav class="navbar navbar-default">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand navbar-brand-centered" href="#/" style="color: #fff">desabafo.com</a>
-		</div>
+<meta charset="UTF-8" />
+<div class="navbar-fixed">
+	<nav>
+		<div class="nav-wrapper">
 		
-    <form class="navbar-form navbar-left">
-        <div class="form-group">
-          <angucomplete id="assuntos" 
-                        placeholder="Buscar por assuntos" 
-                        pause="300" 
-                        selectedobject="assuntoSelecionado" 
-                        localdata="assuntosMaisRecentes" 
-                        searchfields="nome" 
-                        titlefield="nome" 
-                        minlength="1" 
-                        inputclass="form-control form-control-small" 
-                        matchclass="highlight"/>
-        </div>
-    </form>
-    
-	</div>
-</nav>
+			<div class="navbar-header">
+
+				<a class="brand-logo center" href="#/" style="color: #fff">desabafo.com</a>
+		        
+			</div>
+			
+			<ul class="right hide-on-med-and-down">
+		        <li>
+				    <form class="nav-content">
+				        <div class="form-group">
+				          <angucomplete id="assuntos" 
+				                        placeholder="Buscar por assuntos" 
+				                        pause="300" 
+				                        selectedobject="assuntoSelecionado" 
+				                        localdata="assuntosMaisRecentes" 
+				                        searchfields="nome" 
+				                        titlefield="nome" 
+				                        minlength="1" 
+				                        matchclass="highlight"/>
+				        </div>
+	    			</form>
+				</li>
+		      </ul>
+	    
+		</div>
+	</nav>
+</div>
