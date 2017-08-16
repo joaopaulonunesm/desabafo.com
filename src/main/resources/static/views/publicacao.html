@@ -3,11 +3,10 @@
 <ul class="collection" ng-controller="comentarioCtrl">
   <li class="collection-item">
   
-  	<a href="#!" class="secondary-content" ng-click="curtirPublicacao(publicacao)"> {{ publicacao.qntCurtidas }} <i class="material-icons">grade</i></a>
+  	<a href="" class="secondary-content" ng-click="curtirPublicacao(publicacao)"> {{ publicacao.qntCurtidas }} <i class="material-icons">grade</i></a>
     <span class="title">
     	<a ng-href="#/assunto/{{ publicacao.assunto }}"> <h5>{{ publicacao.assunto | sobre }}</h5> </a>
     </span>
-   	<br>
     <a ng-href="#/publicacao/{{ publicacao.id }}"> {{ publicacao.dataCriacao | date }} </a> 
    	<br>
    	<p>
