@@ -117,6 +117,8 @@ angular.module("desabafoApp").controller("publicacaoCtrl", function($scope, $htt
 			url : config.baseUrl + '/assuntos/recentes',
 		}).then(function(response) {
 			
+			$scope.assuntosMaisRecentes = [];
+			
 			angular.forEach(response.data, function(element) {
 				
 				var nome = {"nome": element};
