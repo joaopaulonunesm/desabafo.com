@@ -46,7 +46,7 @@ angular.module("desabafoApp").controller("publicacaoCtrl", function($scope, $htt
 			url : config.baseUrl + '/publicacoes/curtir/'+ publicacao.id,
 		}).then(function(response) {
 			
-			publicacao.qntCurtidas++;
+			publicacao.qntCurtidas = response.data.qntCurtidas;
 			
 		}, function(response) {
 			
