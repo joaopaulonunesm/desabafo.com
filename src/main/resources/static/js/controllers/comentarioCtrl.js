@@ -29,7 +29,7 @@ angular.module("desabafoApp").controller("comentarioCtrl", function($scope, $htt
 			url : config.baseUrl + '/publicacoes/comentario/' + comentario.id + '/curtir',
 		}).then(function(response) {
 			
-			comentario.qntCurtidas++;
+			comentario.qntCurtidas = response.data.qntCurtidas;
 			
 		}, function(response) {
 			
