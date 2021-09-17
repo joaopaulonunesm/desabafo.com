@@ -1,7 +1,10 @@
 package com.desabafo.controllers;
 
-import java.util.Date;
-
+import com.desabafo.models.Comentario;
+import com.desabafo.models.Publicacao;
+import com.desabafo.services.ComentarioService;
+import com.desabafo.services.PublicacaoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,19 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.desabafo.models.Comentario;
-import com.desabafo.models.Publicacao;
-import com.desabafo.services.ComentarioService;
-import com.desabafo.services.PublicacaoService;
+import java.util.Date;
 
 @Controller
+@RequiredArgsConstructor
 public class ComentarioController {
 
-	@Autowired
-	private ComentarioService comentarioService;
-
-	@Autowired
-	private PublicacaoService publicacaoService;
+	private final ComentarioService comentarioService;
+	private final PublicacaoService publicacaoService;
 
 	// Deletar Comentario
 	@RequestMapping(value = "/publicacoes/{idPublicacao}/comentario/{id}", method = RequestMethod.DELETE)

@@ -26,7 +26,7 @@ public class PublicacaoService {
 	}
 
 	public Publicacao findOne(Long id) {
-		return publicacaoRepository.findOne(id);
+		return publicacaoRepository.findById(id).orElseThrow(() -> new RuntimeException("Publicação por ID não encontrada"));
 	}
 
 	public List<Publicacao> findByOrderByDataCriacaoDesc() {
@@ -50,24 +50,15 @@ public class PublicacaoService {
 	}
 	
 	public void ordenarComentariosPorQntCurtidas(List<Comentario> comentarios) {
-
-		Comparator<Comentario> comparator = new Comparator<Comentario>() {
-
-			@Override
-			public int compare(Comentario comentario1, Comentario comentario2) {
-
-				if (comentario1.getQntCurtidas() > comentario2.getQntCurtidas()) {
-					return -1;
-				}
-
-				if (comentario1.getQntCurtidas() < comentario2.getQntCurtidas()) {
-					return 1;
-				}
-
-				return 0;
+		Comparator<Comentario> comparator = (comentario1, comentario2) -> {
+			if (comentario1.getQntCurtidas() > comentario2.getQntCurtidas()) {
+				return -1;
 			}
+			if (comentario1.getQntCurtidas() < comentario2.getQntCurtidas()) {
+				return 1;
+			}
+			return 0;
 		};
-
 		comentarios.sort(comparator);
 	}
 

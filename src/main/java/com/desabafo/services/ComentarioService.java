@@ -21,7 +21,7 @@ public class ComentarioService {
 	}
 
 	public Comentario findOne(Long id) {
-		return comentarioRepository.findOne(id);
+		return comentarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Erro ao buscar um comentário por ID"));
 	}
 
 }

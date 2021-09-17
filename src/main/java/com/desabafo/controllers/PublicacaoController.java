@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,15 +22,13 @@ import com.desabafo.services.ComentarioService;
 import com.desabafo.services.PublicacaoService;
 
 @Controller
+@RequiredArgsConstructor
 public class PublicacaoController {
 
 	private static final int QUANTIDADE_DE_CURTIDAS_MINIMA_PARA_O_TOP = 5;
 
-	@Autowired
-	private PublicacaoService publicacaoService;
-
-	@Autowired
-	private ComentarioService comentarioController;
+	private final PublicacaoService publicacaoService;
+	private final ComentarioService comentarioController;
 
 	// Deletar Publicação
 	@RequestMapping(value = "/publicacoes/{id}", method = RequestMethod.DELETE)

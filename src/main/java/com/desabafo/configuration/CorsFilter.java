@@ -1,4 +1,4 @@
-package com.desabafo;
+package com.desabafo.configuration;
 
 import java.io.IOException;
 
